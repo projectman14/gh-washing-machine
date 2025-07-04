@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, g
+from flask import render_template
 from flask_cors import CORS
 import sqlite3
 import hashlib
@@ -756,7 +757,7 @@ def get_config():
 @app.route('/')
 def home():
     """Serve the main HTML file"""
-    return app.send_static_file('index.html')
+    return app.render_template('index.html')
 
 @app.route('/api')
 def api_docs():
