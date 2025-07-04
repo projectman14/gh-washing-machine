@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify, g
-from flask import render_template
+from flask import Flask, request, jsonify, g ,render_template
 from flask_cors import CORS
 import sqlite3
 import hashlib
