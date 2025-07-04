@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LNMIIT Girls Hostel - Washing Machine Booking</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="logo-section">
-                <img src="lnmiit_logo.png" alt="LNMIIT Logo" class="logo">
+                <img src="{{ url_for('static', filename='lnmiit_logo.png') }}" alt="LNMIIT Logo" class="logo">
                 <div class="header-text">
                     <h1>LNMIIT Girls Hostel</h1>
                     <p>Washing Machine Booking System</p>
@@ -33,7 +35,7 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Student Login</h2>
-                
+
                 <!-- Google Sign-In Button -->
                 <div class="google-signin-section">
                     <!-- Note: Replace YOUR_GOOGLE_CLIENT_ID with actual Google OAuth Client ID -->
@@ -43,24 +45,19 @@
                     <!-- 3. Enable Google+ API -->
                     <!-- 4. Create OAuth 2.0 credentials -->
                     <!-- 5. Add your domain to authorized origins -->
-                    <div id="g_id_onload"
-                         data-client_id="108977272517-28jvn7ro1uvbpg74fccpllmcee889ng.apps.googleusercontent.com"
-                         data-callback="handleCredentialResponse"
-                         data-auto_prompt="false">
+                    <div id="g_id_onload" 
+                        data-client_id="624690583385-s3cnmv6iro5kjjror5oq6t4iulerrcde.apps.googleusercontent.com"
+                        data-callback="handleCredentialResponse"
+                        data-auto_prompt="false">
                     </div>
-                    <div class="g_id_signin" 
-                         data-type="standard"
-                         data-size="large"
-                         data-theme="outline"
-                         data-text="sign_in_with"
-                         data-shape="rectangular"
-                         data-logo_alignment="left">
+                    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
+                        data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
                     </div>
                     <div class="divider">
                         <span>OR</span>
                     </div>
                 </div>
-                
+
                 <form id="loginForm">
                     <div class="form-group">
                         <label for="studentId">Student ID:</label>
@@ -157,7 +154,7 @@
                     <h2>Welcome, <span id="userName"></span>!</h2>
                     <button id="logoutBtn" class="btn-secondary">Logout</button>
                 </div>
-                
+
                 <!-- Machine Status -->
                 <div class="machine-grid">
                     <h3>Washing Machine Status</h3>
@@ -251,7 +248,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
-</html>
 
+</html>
