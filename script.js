@@ -5,7 +5,7 @@ let machines = [];
 let bookings = [];
 
 // API Base URL
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://gh-washing-machine.onrender.com/api';
 
 // DOM Elements
 const loginModal = document.getElementById('loginModal');
