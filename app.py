@@ -756,7 +756,7 @@ def get_config():
 @app.route('/')
 def home():
     """Serve the main HTML file"""
-    return app.render_template('index.html')
+    return render_template('index.html')
 
 @app.route('/api')
 def api_docs():
