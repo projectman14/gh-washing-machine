@@ -27,18 +27,14 @@ function handleCredentialResponse(response) {
         // Decode the JWT token to get user info
         const responsePayload = decodeJwtResponse(response.credential);
         
-        // Extract email and check if it's LNMIIT domain
+        // Extract email - now allow any email domain
         const email = responsePayload.email;
-        if (!email.endsWith('@lnmiit.ac.in')) {
-            showMessage('Please use your LNMIIT email address', 'error');
-            return;
-        }
         
-        // Extract student ID from email (assuming format: studentid@lnmiit.ac.in)
+        // Extract student ID from email (assuming format: studentid@domain.com)
         const studentId = email.split('@')[0];
         
         // Auto-register or login the user
-        googleSignIn(studentId, responsePayload.name, email);
+        googleSignIn(response.credential);
     } catch (error) {
         console.error('Google Sign-In error:', error);
         showMessage('Google Sign-In failed. Please use manual login instead.', 'error');
@@ -54,7 +50,7 @@ function decodeJwtResponse(token) {
     return JSON.parse(jsonPayload);
 }
 
-async function googleSignIn(studentId, name, email) {
+async function googleSignIn(token) {
     try {
         // First try to login
         const loginResponse = await fetch(`${API_BASE}/google-login`, {
@@ -62,11 +58,7 @@ async function googleSignIn(studentId, name, email) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                student_id: studentId,
-                email: email,
-                name: name
-            })
+            body: JSON.stringify({ token })  // <-- ✅ Send token
         });
 
         if (loginResponse.ok) {
@@ -76,17 +68,13 @@ async function googleSignIn(studentId, name, email) {
             showUserDashboard();
             showMessage('Google Sign-In successful!', 'success');
         } else {
-            // If login fails, try to register
+            // Try to register
             const registerResponse = await fetch(`${API_BASE}/google-register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    student_id: studentId,
-                    username: name,
-                    email: email
-                })
+                body: JSON.stringify({ token })  // <-- ✅ Send token again
             });
 
             if (registerResponse.ok) {
@@ -105,7 +93,6 @@ async function googleSignIn(studentId, name, email) {
         showMessage('Google Sign-In failed. Please try again.', 'error');
     }
 }
-
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     initializeEventListeners();
